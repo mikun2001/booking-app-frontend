@@ -8,6 +8,11 @@ import FeaturedProperties from "../../components/featuredProperties/FeaturedProp
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
 
+// #c47c5e	RGB(196, 124, 94)	Terracotta Chip	—
+// #9c96af	RGB(156, 150, 175)	Night Music	—
+// #c4cd87	RGB(196, 205, 135)	Soft Celery	—
+// #e7cfca	RGB(231, 207, 202)	Soft Ice Rose	—
+
 const Home = () => {
 	return (
 		<div>
