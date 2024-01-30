@@ -1,4 +1,4 @@
-import "./list.css";
+import "./listCity.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
@@ -10,39 +10,42 @@ import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
 import Loader from "../../components/loader/Loader";
 
-const List = () => {
+const ListCity = () => {
 	const location = useLocation();
-	const [destination, setDestination] = useState(location.state?.destination);
-	const [dates, setDates] = useState(location.state?.dates);
+	const city = location.pathname.split("/")[3];
 	const [openDate, setOpenDate] = useState(false);
-	const [options, setOptions] = useState(location.state?.options);
-	const [min, setMin] = useState(undefined);
-	const [max, setMax] = useState(undefined);
-	// const [dates, setDates] = useState([
-	// 	{
-	// 		startDate: new Date(),
-	// 		endDate: new Date(),
-	// 		key: "selection",
-	// 	},
-	// ]);
-
-	// const [openOptions, setOpenOptions] = useState(false);
-	// const [options, setOptions] = useState({
-	// 	adult: 1,
-	// 	children: 0,
-	// 	room: 1,
-	// });
-	const { data, loading, error, reFetch } = useFetch(
-		`/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
-	);
 	const { dispatch } = useContext(SearchContext);
+	const [dates, setDates] = useState([
+		{
+			startDate: new Date(),
+			endDate: new Date(),
+			key: "selection",
+		},
+	]);
+
+	const [openOptions, setOpenOptions] = useState(false);
+	const [options, setOptions] = useState({
+		adult: 1,
+		children: 0,
+		room: 1,
+	});
+
+	const [min, setMin] = useState(0);
+	const [max, setMax] = useState(1000);
+
+	const { data, loading, error, reFetch } = useFetch(`/hotels?city=${city}`);
 
 	const handleClick = () => {
 		dispatch({
 			type: "NEW_SEARCH",
-			payload: { destination, dates, options },
+			payload: {
+				city,
+				dates,
+				options,
+			},
 		});
 		reFetch();
+		console.log("inside handle search data =>", data);
 	};
 
 	return (
@@ -53,14 +56,6 @@ const List = () => {
 				<div className="listWrapper">
 					<div className="listSearch">
 						<h1 className="lsTitle">Search</h1>
-						<div className="lsItem">
-							<label>Destination</label>
-							<input
-								placeholder={destination}
-								type="text"
-								onChange={(e) => setDestination(e.target.value)}
-							/>
-						</div>
 						<div className="lsItem">
 							<label>Check-in Date</label>
 							<span
@@ -75,9 +70,9 @@ const List = () => {
 							)}`}</span>
 							{openDate && (
 								<DateRange
-									onChange={(item) =>
-										setDates([item.selection])
-									}
+									onChange={(item) => {
+										setDates([item.selection]);
+									}}
 									minDate={new Date()}
 									ranges={dates}
 								/>
@@ -92,6 +87,7 @@ const List = () => {
 									</span>
 									<input
 										type="number"
+										min={1}
 										onChange={(e) => setMin(e.target.value)}
 										className="lsOptionInput"
 									/>
@@ -102,6 +98,7 @@ const List = () => {
 									</span>
 									<input
 										type="number"
+										defaultValue={1000}
 										onChange={(e) => setMax(e.target.value)}
 										className="lsOptionInput"
 									/>
@@ -157,4 +154,4 @@ const List = () => {
 	);
 };
 
-export default List;
+export default ListCity;

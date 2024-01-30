@@ -1,4 +1,5 @@
 import useFetch from "../../hooks/useFetch";
+import Loader from "../loader/Loader";
 import "./propertyList.css";
 
 const PropertyList = () => {
@@ -14,7 +15,7 @@ const PropertyList = () => {
 	return (
 		<div className="pList">
 			{loading ? (
-				"loading"
+				<Loader />
 			) : (
 				<>
 					{data &&

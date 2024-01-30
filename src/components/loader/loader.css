@@ -1,0 +1,53 @@
+.divLoader {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes arrows {
+
+    0%,
+    100% {
+        color: black;
+        transform: translateY(0);
+    }
+
+    50% {
+        color: #178582;
+        transform: translateY(20px);
+    }
+}
+
+.spanLoader1 {
+    --delay: 0s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader2 {
+    --delay: 0.1s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader3 {
+    --delay: 0.2s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader4 {
+    --delay: 0.3s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader5 {
+    --delay: 0.4s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader6 {
+    --delay: 0.5s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader7 {
+    --delay: 0.6s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}
+.spanLoader8 {
+    --delay: 0.7s;
+    animation: arrows 1s var(--delay) infinite ease-in;
+}

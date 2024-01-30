@@ -16,6 +16,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
+import NotFound from "../../components/notFound/NotFound";
+import Loader from "../../components/loader/Loader";
 
 const Hotel = () => {
 	const location = useLocation();
@@ -24,7 +26,12 @@ const Hotel = () => {
 	const [open, setOpen] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
 
-	const { data, loading, error } = useFetch(`/hotels/find/${id}`);
+	let { data, loading, error } = useFetch(`/hotels/find/${id}`);
+	console.log("data=>", typeof data);
+	if (data.length == 0) {
+		data = null;
+	}
+
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -36,9 +43,13 @@ const Hotel = () => {
 		const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY) + 1;
 		return diffDays;
 	}
-
-	const days = dayDifference(dates[0].endDate, dates[0].startDate);
-
+	let days = 1;
+	if (dates && dates.length) {
+		// console.log("date=>", dates);
+		days = dayDifference(dates[0].endDate, dates[0].startDate);
+	} else {
+		// console.log("no date in hotel : ", dates);
+	}
 	const handleOpen = (i) => {
 		setSlideNumber(i);
 		setOpen(true);
@@ -68,8 +79,8 @@ const Hotel = () => {
 			<Navbar />
 			<Header type="list" />
 			{loading ? (
-				"loading"
-			) : (
+				<Loader />
+			) : data ? (
 				<div className="hotelContainer">
 					{open && (
 						<div className="slider">
@@ -154,6 +165,10 @@ const Hotel = () => {
 					</div>
 					<MailList />
 					<Footer />
+				</div>
+			) : (
+				<div className="hotelContainer">
+					<NotFound />
 				</div>
 			)}
 			{openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}

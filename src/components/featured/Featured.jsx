@@ -1,16 +1,18 @@
 import useFetch from "../../hooks/useFetch";
+import Loader from "../loader/Loader";
 import "./featured.css";
 
 const Featured = () => {
 	const { data, loading, error } = useFetch(
 		"/hotels/countByCity?cities=cuttack,bbsr,salepur"
 	);
-	console.log("data=>", data)
+	// console.log("data=>", data)
 
 	return (
 		<div className="featured">
 			{loading ? (
-				"Loading please wait"
+				// "Loading please wait"
+				<Loader />
 			) : (
 				<>
 					<div className="featuredItem">

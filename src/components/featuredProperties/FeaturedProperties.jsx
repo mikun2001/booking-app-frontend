@@ -1,4 +1,5 @@
 import useFetch from "../../hooks/useFetch";
+import Loader from "../loader/Loader";
 import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
@@ -7,7 +8,8 @@ const FeaturedProperties = () => {
 	return (
 		<div className="fp">
 			{loading ? (
-				"Loading"
+				// "Loading"
+				<Loader />
 			) : (
 				<>
 					{data.map((item) => (
