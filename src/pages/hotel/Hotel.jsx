@@ -27,7 +27,7 @@ const Hotel = () => {
 	const [openModal, setOpenModal] = useState(false);
 
 	let { data, loading, error } = useFetch(`/hotels/find/${id}`);
-	console.log("data=>", typeof data);
+	// console.log("data=>", typeof data);
 	if (data.length == 0) {
 		data = null;
 	}

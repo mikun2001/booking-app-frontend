@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../loader/Loader";
 import "./propertyList.css";
@@ -21,7 +22,14 @@ const PropertyList = () => {
 					{data &&
 						images.map((img, i) => (
 							<div className="pListItem" key={i}>
-								<img src={img} alt="" className="pListImg" />
+								<Link to={`/hotels/property/${data[i]?.type}`}>
+									<img
+										src={img}
+										alt=""
+										className="pListImg"
+									/>
+								</Link>
+
 								<div className="pListTitles">
 									<h1>{data[i]?.type}</h1>
 									<h2>

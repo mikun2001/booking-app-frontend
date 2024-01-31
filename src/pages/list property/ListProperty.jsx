@@ -1,4 +1,4 @@
-import "./listCity.css";
+import "./listProperty.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
@@ -10,9 +10,9 @@ import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
 import Loader from "../../components/loader/Loader";
 
-const ListCity = () => {
+const ListProperty = () => {
 	const location = useLocation();
-	const city = location.pathname.split("/")[3];
+	const propertyType = location.pathname.split("/")[3];
 	const [openDate, setOpenDate] = useState(false);
 	const { dispatch } = useContext(SearchContext);
 	const [dates, setDates] = useState([
@@ -32,7 +32,7 @@ const ListCity = () => {
 	const [max, setMax] = useState(1000);
 
 	const { data, loading, error, reFetch } = useFetch(
-		`/hotels?city=${city}&min=${min || 0}&max=${max || 999}`
+		`/hotels?type=${propertyType}&min=${min || 0}&max=${max || 999}`
 	);
 
 	const handleClick = () => {
@@ -52,6 +52,9 @@ const ListCity = () => {
 		<div>
 			<Navbar />
 			<Header type="list" />
+			<h1 className="hiTitle">
+				Here you can find best {propertyType} ...
+			</h1>
 			<div className="listContainer">
 				<div className="listWrapper">
 					<div className="listSearch">
@@ -154,4 +157,4 @@ const ListCity = () => {
 	);
 };
 
-export default ListCity;
+export default ListProperty;

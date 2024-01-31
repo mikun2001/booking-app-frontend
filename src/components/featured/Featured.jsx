@@ -7,7 +7,7 @@ const Featured = () => {
 	const { data, loading, error } = useFetch(
 		"/hotels/countByCity?cities=cuttack,bbsr,salepur"
 	);
-	console.log(data.length);
+	// console.log(data.length);
 
 	const navigate = useNavigate();
 	// console.log("data=>", data)

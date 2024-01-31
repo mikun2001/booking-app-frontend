@@ -2,9 +2,16 @@ import {
 	faBed,
 	faCalendarDays,
 	faCar,
+	faCartFlatbedSuitcase,
+	faHotel,
+	faHouse,
+	faHouseChimney,
+	faHouseCircleXmark,
 	faPerson,
 	faPlane,
+	faRestroom,
 	faTaxi,
+	faUmbrellaBeach,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
@@ -16,6 +23,8 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
+import { faAccessibleIcon, faSchlix } from "@fortawesome/free-brands-svg-icons";
+import { faHourglass } from "@fortawesome/free-regular-svg-icons";
 
 const Header = ({ type }) => {
 	const [destination, setDestination] = useState("");
@@ -59,6 +68,16 @@ const Header = ({ type }) => {
 	};
 	const { user } = useContext(AuthContext);
 
+	window.document.querySelectorAll(".headerListItem").forEach((ele) =>
+		ele.addEventListener("click", function (event) {
+			event.preventDefault();
+			document
+				.querySelectorAll(".headerListItem")
+				.forEach((ele) => ele.classList.remove("active"));
+			this.classList.add("active");
+		})
+	);
+
 	return (
 		<div className="header">
 			<div
@@ -70,23 +89,23 @@ const Header = ({ type }) => {
 				<div className="headerList">
 					<div className="headerListItem active">
 						<FontAwesomeIcon icon={faBed} />
-						<span>Stays</span>
+						<span>Hotel</span>
 					</div>
 					<div className="headerListItem">
-						<FontAwesomeIcon icon={faPlane} />
-						<span>Flights</span>
+						<FontAwesomeIcon icon={faHouse} />
+						<span>Apartment</span>
 					</div>
 					<div className="headerListItem">
-						<FontAwesomeIcon icon={faCar} />
-						<span>Car rentals</span>
+						<FontAwesomeIcon icon={faUmbrellaBeach} />
+						<span>Resort</span>
 					</div>
 					<div className="headerListItem">
-						<FontAwesomeIcon icon={faBed} />
-						<span>Attractions</span>
+						<FontAwesomeIcon icon={faHotel} />
+						<span>Villa</span>
 					</div>
 					<div className="headerListItem">
-						<FontAwesomeIcon icon={faTaxi} />
-						<span>Airport taxis</span>
+						<FontAwesomeIcon icon={faCartFlatbedSuitcase} />
+						<span>Cabin</span>
 					</div>
 				</div>
 				{type !== "list" && (
@@ -99,7 +118,9 @@ const Header = ({ type }) => {
 							savings of 10% or more with a free Abhibooking
 							account
 						</p>
-						{user ? "": (
+						{user ? (
+							""
+						) : (
 							<button
 								className="headerBtn"
 								onClick={handleLoginClick}>
